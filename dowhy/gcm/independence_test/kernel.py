@@ -385,6 +385,10 @@ def _convert_to_numeric(*args) -> List[np.ndarray]:
                 X[:, col] = X[:, col].astype(np.float64)
                 X = np.array(X).astype(np.float64)
                 print("\tis instance float" + str(X[0,col]) + str(type(X[0,col]) ) )
+            if isinstance(X[0, col], str):
+                X[:, col] = X[:, col].astype(np.float64)
+                X = np.array(X).astype(np.float64)
+                print("\tis instance str" + str(X[0,col]) + str(type(X[0,col]) ) )
         result.append(X)
 
     return result
