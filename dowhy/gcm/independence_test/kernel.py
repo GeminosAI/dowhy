@@ -369,18 +369,38 @@ def _estimate_rit_statistic(X: np.ndarray, Y: np.ndarray) -> np.ndarray:
 def _estimate_column_wise_covariances(X: np.ndarray, Y: np.ndarray) -> np.ndarray:
     return np.cov(X, Y, rowvar=False)[: X.shape[1], -Y.shape[1] :]
 
-
+# CWY IMPL
 def _convert_to_numeric(*args) -> List[np.ndarray]:
+    print("CONVERT TO NUMERIC")
     result = []
     for X in args:
         X = np.array(X)
         for col in range(X.shape[1]):
+            print(" - " +  str(X[0,col]) + str(type(X[0,col]) ) )
             if isinstance(X[0, col], bool):
-                X[:, col] = X[:, col].astype(str)
-
-        result.append(auto_apply_encoders(X, auto_fit_encoders(X)).astype(float))
+                X[:, col] = X[:, col].astype(np.float64)
+                X = np.array(X).astype(np.float64)
+                print("\tis isntance bool " + str(X[0,col]) + str(type(X[0,col]) ) )
+            if isinstance(X[0, col], float):
+                X[:, col] = X[:, col].astype(np.float64)
+                X = np.array(X).astype(np.float64)
+                print("\tis instance float" + str(X[0,col]) + str(type(X[0,col]) ) )
+        result.append(X)
 
     return result
+
+# ORIGINAL CONVERT TO NUMBERIC
+# def _convert_to_numeric(*args) -> List[np.ndarray]:
+#     result = []
+#     for X in args:
+#         X = np.array(X)
+#         for col in range(X.shape[1]):
+#             if isinstance(X[0, col], bool):
+#                 X[:, col] = X[:, col].astype(str)
+
+#         result.append(auto_apply_encoders(X, auto_fit_encoders(X)).astype(float))
+
+#     return result
 
 
 def _remove_constant_columns(X: np.ndarray) -> np.ndarray:

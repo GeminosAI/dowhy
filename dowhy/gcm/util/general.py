@@ -65,19 +65,34 @@ def auto_fit_encoders(
     else:
         return fit_one_hot_encoders(X)
 
-
+# CWY IMPL
 def auto_apply_encoders(
     X: np.ndarray, encoder_map: Dict[int, Union[OneHotEncoder, CatBoostEncoder]], Y: Optional[np.ndarray] = None
 ) -> np.ndarray:
     X = shape_into_2d(X)
 
-    if not encoder_map:
-        return X
+    # if not encoder_map:
+    #     return X
 
-    if isinstance(list(encoder_map.values())[0], OneHotEncoder):
-        return apply_one_hot_encoding(X, encoder_map)
-    else:
-        return apply_catboost_encoding(X, encoder_map, Y)
+    # if isinstance(list(encoder_map.values())[0], OneHotEncoder):
+    #     return apply_one_hot_encoding(X, encoder_map)
+    # else:
+    #     return apply_catboost_encoding(X, encoder_map, Y)
+    return X
+
+# ORIGINAL IMPL
+# def auto_apply_encoders(
+#     X: np.ndarray, encoder_map: Dict[int, Union[OneHotEncoder, CatBoostEncoder]], Y: Optional[np.ndarray] = None
+# ) -> np.ndarray:
+#     X = shape_into_2d(X)
+
+#     if not encoder_map:
+#         return X
+
+#     if isinstance(list(encoder_map.values())[0], OneHotEncoder):
+#         return apply_one_hot_encoding(X, encoder_map)
+#     else:
+#         return apply_catboost_encoding(X, encoder_map, Y)
 
 
 def fit_one_hot_encoders(X: np.ndarray) -> Dict[int, OneHotEncoder]:
